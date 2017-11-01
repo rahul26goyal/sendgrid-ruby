@@ -5,6 +5,7 @@ require 'json'
 module SendGrid
   class Mail
 
+    attr_accessor :ip_pool_name, :template_id, :send_at, :batch_id
     attr_reader :personalizations, :contents, :attachments, :categories, :sections, :headers, :custom_args
 
     def initialize(from_email=nil, subj=nil, to_email=nil, cont=nil)
@@ -68,14 +69,6 @@ module SendGrid
       @categories << category.name
     end
 
-    def template_id=(template_id)
-      @template_id = template_id
-    end
-
-    def template_id
-      @template_id
-    end
-
     def add_section(section)
       section = section.to_json
       @sections = @sections.merge(section['section'])
@@ -91,36 +84,12 @@ module SendGrid
       @custom_args = @custom_args.merge(custom_arg['custom_arg'])
     end
 
-    def send_at=(send_at)
-      @send_at = send_at
-    end
-
-    def send_at
-      @send_at
-    end
-
-    def batch_id=(batch_id)
-      @batch_id = batch_id
-    end
-
-    def batch_id
-      @batch_id
-    end
-
     def asm=(asm)
       @asm = asm
     end
 
     def asm
       @asm.nil? ? nil : @asm.to_json
-    end
-
-    def ip_pool_name=(ip_pool_name)
-      @ip_pool_name = ip_pool_name
-    end
-
-    def ip_pool_name
-      @ip_pool_name
     end
 
     def mail_settings=(mail_settings)
